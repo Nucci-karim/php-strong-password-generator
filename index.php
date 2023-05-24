@@ -1,19 +1,5 @@
 <?php
-$lunghezza = $_GET['lunghezza'];
-
-$digits    = array_flip(range('0', '9'));
-$lowercase = array_flip(range('a', 'z'));
-$uppercase = array_flip(range('A', 'Z')); 
-$special   = array_flip(str_split('!@#$%^&*()_+=-}{[}]\|;:<>?/'));
-$combined  = array_merge($digits, $lowercase, $uppercase, $special);
-
-$password  = str_shuffle(array_rand($digits) .
-                         array_rand($lowercase) .
-                         array_rand($uppercase) . 
-                         array_rand($special) . 
-                         implode(array_rand($combined, rand(0, intval($lunghezza)))));
-
-
+include __DIR__ .'/include/partials/funzioni.php';
 
 ?>
 
@@ -57,9 +43,8 @@ $password  = str_shuffle(array_rand($digits) .
         </div>
         <div class="card">
             <div class="card-header">
-                <?php 
-                echo $password;
-                ?>
+                lunghezza massima : <?php echo (isset($_GET['radioValue']) && $_GET['radioValue'] == 'yes' ) ? $lunghezza : $lunghezzaconfiltri ?><br>
+                Password : <?php $_SESSION['password']?>
             </div>
             <div class="card-body">
                 <form method="GET">
@@ -71,27 +56,27 @@ $password  = str_shuffle(array_rand($digits) .
                         <label class="form-label">Consenti ripetizioni di uno o più caratteri</label>
                         <div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input name="radioValue" value="yes" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Yes
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <input name="radioValue" value="no" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     No
                                 </label>
                             </div>
                             <div class="mb-1 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input name="lettere" type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Lettere</label>
                             </div>
                             <div class="mb-1 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input name="numeri" type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Numeri</label>
                             </div>
                             <div class="mb-1 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input name="simboli" type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Simboli</label>
                             </div>
                         </div>
